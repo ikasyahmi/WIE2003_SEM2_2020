@@ -1,0 +1,120 @@
+---
+title: "Lab7_Plot1"
+author: "Ika"
+date: "6/6/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r }
+library(shiny)
+#set working directory
+setwd("C:/Users/user/OneDrive/Documents/WIE2003/mco/week 4")
+
+#load library data.table
+library(data.table)
+
+DT<-fread("./household_power_consumption 2.txt", na.strings="?")
+
+#set date as d:m:y
+DT$strDate <- as.Date(DT$Date,"%d/%m/%Y")
+
+#select data 
+DT.filter<-DT[DT$strDate=="2007-02-01" | DT$strDate=="2007-02-02",]
+DT.filter$Global_active_power<-as.numeric(DT.filter$Global_active_power)
+rm(DT)
+```
+
+```{r}
+#output histogram to PNG
+png(filename="plot1.png", width=480, height=480)
+hist(DT.filter$Global_active_power, 
+     col="red", 
+     xlab="Global Active Power (kilowatts)", 
+     main="Global Active Power")
+dev.off()
+
+```
+
+
+```{r}
+
+#output histogram to PNG
+plot(DT.filter$Global_active_power~DT.filter$Datetime, type="l",
+     ylab="Global Active Power (kilowatts)", xlab="")
+dev.copy(png, file="plot2.png", height=480, width=480)
+
+dev.off()
+
+
+
+```
+
+
+
+```{r}
+
+#plot the graph with legends
+with(DT.filter, {
+  plot(Sub_metering_1~Datetime, type="l",
+       ylab="Energy sub metering", xlab="")
+  lines(Sub_metering_2~Datetime,col='Red')
+  lines(Sub_metering_3~Datetime,col='Blue')
+})
+legend("topright", col=c("black", "red", "blue"), lty=1, lwd=2,
+       legend=c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"), cex = 0.75)
+
+## output histogram to PNG
+dev.copy(png, file="plot3.png", height=480, width=480)
+dev.off()
+
+
+
+```
+
+
+```{r}
+#plot the graph with legends
+par(mfrow=c(2,2), mar=c(4,4,2,1), oma=c(0,0,2,0))
+with(DT.filter, {
+  plot(Global_active_power~Datetime, type="l",
+       ylab="Global Active Power", xlab="")
+  plot(Voltage~Datetime, type="l",
+       ylab="Voltage (volt)", xlab="datetime")
+  plot(Sub_metering_1~Datetime, type="l",
+       ylab="Energy sub metering", xlab="")
+       lines(Sub_metering_2~Datetime,col='Red')
+       lines(Sub_metering_3~Datetime,col='Blue')
+       legend("topright", col=c("black", "red", "blue"), lty=1, lwd=2, bty="n", legend=c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"), cex = 0.75)
+  plot(Global_reactive_power~Datetime, type="l",
+       ylab="Global_Rective_Power",xlab="datetime")
+})
+## Saving to file
+dev.copy(png, file="plot4.png", height=480, width=480)
+dev.off()
+
+
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
