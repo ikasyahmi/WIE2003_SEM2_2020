@@ -1,0 +1,105 @@
+
+
+```{r}
+#Declaring data from package attitude as data frame attdata
+attdata <- datasets::attitude
+
+```
+
+```{r}
+# 1.	See basic descriptive statistics from data frame attdata
+summary(attdata)
+```
+```{r}
+#a)	What is the difference between (attitude[4]) and (attitude$learning)
+
+# This command extract data at column with index 4
+attdata[4]
+#This command specify the column which has name 'learning'
+attdata$learning
+```
+
+```{r}
+#2.	Lists name of variables in a dataset
+names(attdata)
+```
+```{r}
+#3.	Calculate number of rows in a dataset
+nrow(attdata)
+```
+
+```{r}
+#4.	Calculate number of columns in a dataset
+ncol(attdata)
+```
+
+```{r}
+#5.	List structure of a dataset
+str(attdata)
+```
+```{r}
+#6.	See first 6 rows (by default) of dataset
+head(attdata, n = 6)
+```
+
+```{r}
+#7.	See first n rows of dataset
+#Select to see the first 15 rows of dataset
+n = 15
+attdata[(1:n),]
+```
+
+```{r}
+#8.	See all rows but not the last row
+totalrow <- nrow(attdata)
+attdata[(1:totalrow-1),]
+```
+
+```{r}
+#9.	See last 6 rows (by default) of a dataset
+tail(attdata, n = 6)
+```
+
+```{r}
+#10.	See last n rows of dataset
+#Select to see the last 12 rows of dataset.
+totalrow = nrow(attdata)
+m = 12
+attdata[(totalrow-m:totalrow),]
+```
+```{r}
+#11.	See the last n rows but not the first row
+totalrow = nrow(attdata)
+attdata[(2:totalrow),]
+```
+
+```{r}
+#12.	Number of missing values
+#Which function will returns number of missing values in each variable of a dataset?
+sapply(attdata, function(x)sum(is.na(x)))
+```
+```{r}
+#13.	Number of missing values in a single variable
+selectvatiable <- attdata$rating
+sapply(selectvatiable, function(x)sum(is.na(x)))
+#The zeros values indicate that all there is no NA values in the column
+```
+
+```{r}
+#14.	Plot a simple graph, which will appear on a screen device.
+with(attdata, plot(complaints))
+title("Learning Attitude")
+```
+
+```{r}
+#15.	Plot the graph shown below, and make it appear on a file device (a pdf file)
+pdf('LearningXPrivilages (EDA).pdf')
+with(attdata, plot(privileges, learning))
+title("Learning Attitude")
+dev.off()
+#The PDF file will appear in your folder
+```
+
+
+
+

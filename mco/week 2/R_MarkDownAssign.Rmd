@@ -1,0 +1,38 @@
+# BASICS OF R PROGRAMMING
+
+## Data COllection
+
+### Checking and setting Working Directory
+```{r}
+#Get the working directory
+print(getwd())
+
+setwd("C:/Users/user/OneDrive/Documents/WIE2003/dataset/")
+
+print(getwd())
+```
+
+### Analyzing Data
+Check read and find maximum Critic Score
+```{r}
+#get maximum critic score
+data <- read.csv("C:/Users/user/OneDrive/Documents/WIE2003/dataset/Movies.csv")
+criticmax <- max(data$Critic.Score)
+print(criticmax)
+```
+
+Get movie that have runtime more than 60
+```{r}
+#Get movie that have runtime more than 60
+adata <- read.csv("C:/Users/user/OneDrive/Documents/WIE2003/dataset/Movies.csv")
+info <- subset(adata,Runtime > 200)
+print(info)
+```
+
+Get movie that was release in 2000 that has critic score > 70
+```{r}
+#Get movie that was release in 2000 that has critic score > 70
+bdata <- read.csv("C:/Users/user/OneDrive/Documents/WIE2003/dataset/Movies.csv")
+info <- subset(bdata,Critic.Score > 70 & Year == 2000)
+print(info)
+```

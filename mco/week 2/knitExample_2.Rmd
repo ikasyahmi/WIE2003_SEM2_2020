@@ -1,0 +1,80 @@
+
+# My First Knit Document
+This is a text ("Hello THere my Name is Ika")
+
+## **Introduction**
+
+### Codes that are echoed
+```{r}
+#code is echoed
+set.seed(1)
+x <- rnorm(100)
+mean(x)
+```
+### Codes that are not echoed
+_note: The code is the same as above but do not show the R_
+```{r simulation, echo=FALSE}
+#code is not echoed
+set.seed(1)
+x <- rnorm(100)
+mean(x)
+```
+### Inline Text Computation
+```{r}
+time <- format(Sys.time(),"%a %b %d %X %Y")
+rand <- rnorm(1)
+```
+The current time is `r time`. My fav random number is `r rand`.
+
+### Incorporating Graphics
+
+Stimulate data
+```{r stimulatedata,echo=TRUE}
+x <- rnorm(100);
+y <- x + rnorm(100, sd = 0.5)
+```
+
+Here is the scatterplot of the data
+```{r scatterplot,fig.height=4}
+par(mar = c(5,4,1,1), las = 1)
+plot(x,y,main = "My Stimulated Data")
+```
+
+### Making Tables
+
+```{r fitmodel}
+library(datasets)
+data("airquality")
+fit <- lm(Ozone ~ Wind + Solar.R, data = airquality)
+```
+
+Here is a table of regression coefficients.
+
+```{r showtable,results='asis'}
+library(xtable)
+xt <- xtable(summary(fit))
+print(xt,type = "html")
+```
+
+### Setting Global Options
+```{r setoptions, echo=FALSE}
+library(knitr)
+knitr::opts_chunk$set
+#statement above set default to NOT echo
+opts_chunk$set(echo = FALSE, results = "hide")
+```
+
+First simulate data
+```{r simulatedata, echo=TRUE} 
+#statement above overides default
+x <- rnorm(100);
+y <- x + rnorm(100,sd = 0.5)
+```
+
+Here is a scatterplot of data.
+
+```{r scaterplot,fig.height= 4}
+par(mar = c(5,4,1,1), las = 1)
+plot(x,y, main = "My Simulated Data")
+
+
